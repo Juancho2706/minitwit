@@ -14,7 +14,7 @@ import { db, auth } from "../firebase/Firebaseinit";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { handlelike } from "./handlelike";
 
-const Timeline = ({newPost}) => {
+const Timeline = ({ newPost }) => {
   const [posts, setPosts] = useState([]);
   const [newPosts, setNewPosts] = useState([]);
   const [user] = useAuthState(auth);
@@ -29,13 +29,13 @@ const Timeline = ({newPost}) => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(latestDocRef)
+      console.log(latestDocRef);
       if (latestDocRef.current) {
         const newPostsData = postsData.filter(
           (post) => post.createdAt > latestDocRef.current.createdAt
         );
         if (newPostsData.length > 0) {
-          setNewPosts(prev => [...newPostsData, ...prev]);
+          setNewPosts((prev) => [...newPostsData, ...prev]);
         }
       } else {
         setPosts(postsData);
@@ -51,7 +51,7 @@ const Timeline = ({newPost}) => {
 
   useEffect(() => {
     if (newPost) {
-      setPosts(prevPosts => [newPost, ...prevPosts]);
+      setPosts((prevPosts) => [newPost, ...prevPosts]);
     }
   }, [newPost]);
 
@@ -77,6 +77,27 @@ const Timeline = ({newPost}) => {
             }
           : post
       )
+    );
+  };
+
+  const renderizadodeposts = () => {
+    return (
+      <>
+        {posts.map((post) => (
+          <div key={post.id}>
+            <h3>{post.user}</h3>
+            <p>{post.content}</p>
+            <div>
+              <span>{post.likes.length} Likes</span>
+              {user && (
+                <button onClick={() => handleLikeClick(post.id, post.likes)}>
+                  {post.likes.includes(user.uid) ? "Unlike" : "Like"}
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </>
     );
   };
 
