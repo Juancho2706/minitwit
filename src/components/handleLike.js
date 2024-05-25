@@ -1,8 +1,8 @@
-// utils/handleLike.js
+// utils/handlelike.js
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase/Firebaseinit";
 
-export const handleLike = async (postId, userId, liked) => {
+export const handlelike = async (postId, userId, liked) => {
   const postRef = doc(db, "posts", postId);
   
   if (liked) {

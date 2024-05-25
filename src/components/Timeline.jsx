@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../firebase/Firebaseinit";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { handleLike } from "../components/handlelike";
+import { handlelike } from "../components/handlelike";
 
 const Timeline = ({newPost}) => {
   const [posts, setPosts] = useState([]);
@@ -63,7 +63,7 @@ const Timeline = ({newPost}) => {
   const handleLikeClick = async (postId, likes) => {
     const userId = user.uid;
     const liked = likes.includes(userId);
-    await handleLike(postId, userId, liked);
+    await handlelike(postId, userId, liked);
 
     // Update the local state to reflect the change
     setPosts(
