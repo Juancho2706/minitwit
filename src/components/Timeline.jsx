@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../firebase/Firebaseinit";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { handlelike } from "../components/handlelike";
+import { handlelike } from "./handlelike";
 
 const Timeline = ({newPost}) => {
   const [posts, setPosts] = useState([]);
